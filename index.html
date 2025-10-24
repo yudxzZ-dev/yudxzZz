@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YudxzZ - Platform API Modern</title>
+    <!-- Font & Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap');
+
+        :root {
+            --bg-color: #111827;
+            --card-color: #1f2937;
+            --border-color: #374151;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3b0;
+            --accent-gradient: linear-gradient(90deg, #34d399, #22d3ee);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+        }
+
+        /* --- Landing Section --- */
+        .landing-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+            padding: 2rem;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .landing-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .landing-title span {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .landing-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: var(--text-primary);
+            color: var(--bg-color);
+        }
+
+        /* --- API Section --- */
+        .api-section {
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Accordion Style */
+        .api-category {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .api-category summary {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem;
+            cursor: pointer;
+            list-style: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .api-category summary::before { /* Folder Icon */
+            content: '\f07b'; /* Font Awesome folder icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--text-secondary);
+        }
+        .api-category[open] > summary::before {
+             content: '\f07c'; /* Font Awesome open folder icon */
+        }
+        
+        .api-category summary .count {
+            background-color: var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+        }
+        
+        .api-category summary .chevron {
+            margin-left: auto;
+            transition: transform 0.3s ease;
+        }
+        
+        .api-category[open] > summary .chevron {
+            transform: rotate(90deg);
+        }
+        
+        .endpoint-content {
+            padding: 0 1.25rem 1.25rem 1.25rem;
+            background-color: var(--bg-color);
+        }
+        
+        .endpoint-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        
+        .input-field, .file-input-label {
+            width: 100%;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #34d399;
+        }
+        
+        /* Custom File Input */
+        input[type="file"] {
+            display: none;
+        }
+        .file-input-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-align: center;
+        }
+        .file-input-label:hover {
+            border-color: #9ca3b0;
+        }
+        
+        .submit-btn {
+            background: var(--accent-gradient);
+            border: none;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(52, 211, 153, 0.2);
+        }
+        .submit-btn:disabled {
+            background: var(--border-color);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Result Section */
+        #result-container {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            text-align: center;
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s;
+        }
+        #result-image {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid var(--border-color);
+            border-bottom-color: #34d399;
+            border-radius: 50%;
+            display: inline-block;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bagian Landing -->
+    <section class="landing-section">
+        <h1 class="landing-title">Platform API <span>Modern & Gratis</span></h1>
+        <p class="landing-subtitle">Akses berbagai API yang powerful dan mudah digunakan. Dokumentasi lengkap, response cepat, dan gratis untuk semua developer.</p>
+        <a href="#api-docs" class="cta-button"><i class="fa-solid fa-bolt"></i> Lihat API</a>
+    </section>
+
+    <!-- Bagian API Dokumentasi -->
+    <section id="api-docs" class="api-section">
+        <header class="section-header">
+            <h2><i class="fa-solid fa-book"></i> Documentation API</h2>
+        </header>
+        <br>
+        <details class="api-category" open>
+            <summary>
+                AI Image Editing
+                <span class="count">1</span>
+                <i class="fa-solid fa-chevron-right chevron"></i>
+            </summary>
+            <div class="endpoint-content">
+                <form id="editor-form" class="endpoint-form">
+                    
+                    <div class="form-group">
+                        <label for="imageUrl">Foto (via URL)</label>
+                        <input type="url" id="imageUrl" class="input-field" placeholder="https://example.com/image.png">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="imageFile">Atau Pilih File</label>
+                        <input type="file" id="imageFile" accept="image/*">
+                        <label for="imageFile" class="file-input-label" id="file-label">
+                            <i class="fa-solid fa-upload" style="margin-right: 10px;"></i>
+                            <span>Pilih gambar dari perangkat</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prompt">Prompt</label>
+                        <textarea id="prompt" class="input-field" placeholder="Contoh: Ubah menjadi karakter anime" required rows="3"></textarea>
+                    </div>
+
+                    <button type="submit" id="submit-button" class="submit-btn">
+                        <i class="fa-solid fa-paper-plane"></i> Kirim
+                    </button>
+                </form>
+                
+                <div id="result-container">
+                    <div id="loader-container">
+                        <div class="loader"></div>
+                        <p style="margin-top: 1rem; color: var(--text-secondary);">AI sedang bekerja...</p>
+                    </div>
+                    <img id="result-image" src="" alt="Generated Image" style="display: none;">
+                </div>
+            </div>
+        </details>
+    </section>
+
+    <script>
+        const editorForm = document.getElementById('editor-form');
+        const imageUrlInput = document.getElementById('imageUrl');
+        const imageFileInput = document.getElementById('imageFile');
+        const fileLabel = document.getElementById('file-label').querySelector('span');
+        const promptInput = document.getElementById('prompt');
+        
+        const resultContainer = document.getElementById('result-container');
+        const resultImage = document.getElementById('result-image');
+        const submitButton = document.getElementById('submit-button');
+        const loaderContainer = document.getElementById('loader-container');
+
+        // Update label saat file dipilih
+        imageFileInput.addEventListener('change', function() {
+            if (this.files && this.files.length > 0) {
+                fileLabel.textContent = this.files[0].name;
+                imageUrlInput.value = ''; // Kosongkan input URL jika file dipilih
+                imageUrlInput.disabled = true;
+            } else {
+                fileLabel.textContent = 'Pilih gambar dari perangkat';
+                imageUrlInput.disabled = false;
+            }
+        });
+        
+        // Aktifkan kembali input URL jika diketik
+        imageUrlInput.addEventListener('input', function() {
+             if (this.value) {
+                imageFileInput.value = ''; // Hapus file yang dipilih
+                fileLabel.textContent = 'Pilih gambar dari perangkat';
+             }
+        });
+
+        editorForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            // Peringatan penting: API yang kita gunakan HANYA mendukung URL.
+            // Fitur upload file di sini hanya untuk UI, tidak bisa mengirim file langsung.
+            if (imageFileInput.files.length > 0) {
+                alert('Maaf, untuk demo ini API hanya mendukung input via URL. Fitur upload file belum dapat digunakan untuk memproses gambar.');
+                return;
+            }
+            
+            const imageUrl = imageUrlInput.value;
+            const prompt = promptInput.value;
+
+            if (!imageUrl) {
+                alert('URL Gambar tidak boleh kosong!');
+                return;
+            }
+
+            // Tampilkan animasi loading
+            resultContainer.style.display = 'block';
+            resultContainer.style.animation = 'fadeIn 0.5s';
+            loaderContainer.style.display = 'block';
+            resultImage.style.display = 'none';
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memproses...';
+
+            const apiBaseUrl = 'https://api.zenzxz.my.id/api/maker/imagedit';
+            const encodedImageUrl = encodeURIComponent(imageUrl);
+            const encodedPrompt = encodeURIComponent(prompt);
+            const apiUrl = `${apiBaseUrl}?url=${encodedImageUrl}&prompt=${encodedPrompt}`;
+
+            resultImage.src = apiUrl;
+
+            resultImage.onload = function() {
+                loaderContainer.style.display = 'none';
+                resultImage.style.display = 'block';
+                resultImage.style.animation = 'fadeIn 0.5s'; // Animasi saat gambar muncul
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim';
+            };
+
+            resultImage.onerror = function() {
+                loaderContainer.style.display = 'none';
+                alert('Gagal memproses gambar. Pastikan URL gambar valid dan bisa diakses publik.');
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim';
+                resultContainer.style.display = 'none';
+            };
+        });
+    </script>
+</body>
+</html>
